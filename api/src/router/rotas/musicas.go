@@ -13,7 +13,7 @@ var rotasMusicas = []Rota{ //Slice de struct rota para criar todas as rotas que 
 		RequerAutenticacao: false,
 	}, // Rota para criar usuário
 	{
-		Uri:                "/usuarios",
+		Uri:                "/musicas",
 		Metodo:             http.MethodGet,
 		Funcao:             controllers.BuscarMusicas,
 		RequerAutenticacao: true,
