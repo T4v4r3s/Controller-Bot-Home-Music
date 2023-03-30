@@ -74,7 +74,7 @@ func BuscarMusicas(w http.ResponseWriter, r *http.Request) { //Busca todos os us
 	defer db.Close() //Finaliza a conexão com o banco no final da execução
 
 	//Passa conexão e manda o pacote repositório realizar a querry
-	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
+	repositorio := repositorios.NovoRepositorioDeMusicas(db)
 
 	musicas, erro := repositorio.Buscar(nomeougenero) //Chama o método Buscar para realizar a consulta no banco
 	if erro != nil {
