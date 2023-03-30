@@ -66,6 +66,8 @@ func (musica *Musica) Preparar(etapa string) error {
 	valor := string(out)
 	resultado, _ := strToInt(valor)
 
+	fmt.Print(resultado)
+
 	musica.Duracao = segundosParaMinutosSegundos(resultado)
 
 	return nil
