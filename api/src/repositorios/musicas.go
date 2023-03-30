@@ -3,6 +3,7 @@ package repositorios
 import (
 	"api/src/modelos"
 	"database/sql"
+	"fmt"
 )
 
 type musicas struct {
@@ -31,52 +32,52 @@ func (repositorio musicas) Criar(musica modelos.Musica) error {
 	return nil //retorno final da função
 }
 
-/*
 // Busca todos os usuários que tenham esse nome ou nick (ou parcialmente)
-func (repositorio usuarios) Buscar(nomeOuNick string) ([]modelos.Usuario, error) {
-	nomeOuNick = fmt.Sprintf("%%%s%%", nomeOuNick) //%nomeounick% --> como é transformado
+func (repositorio musicas) Buscar(nomeougenero string) ([]modelos.Musica, error) {
+	nomeougenero = fmt.Sprintf("%%%s%%", nomeougenero) //%nomeounick% --> como é transformado
 
-	linhas, erro := repositorio.db.Query("SELECT id, nome, nick, criadoEM FROM usuarios WHERE nome LIKE ? OR nick LIKE ?", nomeOuNick, nomeOuNick)
+	linhas, erro := repositorio.db.Query("SELECT nome, caminho, duracao, adicionadoPor, genero FROM musicas WHERE nome LIKE ? OR genero LIKE ?", nomeougenero, nomeougenero)
 	if erro != nil {
 		return nil, erro
 	}
 
 	defer linhas.Close() //lembrar de fechar a querry sempre!
 
-	var usuarios []modelos.Usuario
+	var musicas []modelos.Musica
 
 	for linhas.Next() {
-		var usuario modelos.Usuario
+		var musica modelos.Musica
 
-		if erro = linhas.Scan(&usuario.Id, &usuario.Nome, &usuario.Nick, &usuario.CriadoEm); erro != nil { //scaneadndo valores da querry e colocando em uma variável de usuário
+		if erro = linhas.Scan(&musica.Nome, &musica.Caminho, &musica.Duracao, &musica.AdicionadoPor, &musica.Genero); erro != nil { //scaneadndo valores da querry e colocando em uma variável de usuário
 			return nil, erro
 		}
 
-		usuarios = append(usuarios, usuario) //coloca os valores da variável tipo usuário no slice usuários
+		musicas = append(musicas, musica) //coloca os valores da variável tipo usuário no slice usuários
 	}
 
-	return usuarios, nil
+	return musicas, nil
 
 }
 
 // Busca um usuário do banco por um ID específico
-func (repositorio usuarios) BuscarPorID(ID uint64) (modelos.Usuario, error) {
-	linhas, erro := repositorio.db.Query("SELECT id, nome, nick, criadoEM FROM usuarios WHERE id = ?", ID) //Query para consulta com base no ID
+func (repositorio musicas) BuscarPorID(nome string) (modelos.Musica, error) {
+	linhas, erro := repositorio.db.Query("SELECT nome, caminho, duracao, adicionadoPor, genero FROM musicas WHERE nome LIKE ?", nome) //Query para consulta com base no ID
 	if erro != nil {
-		return modelos.Usuario{}, erro
+		return modelos.Musica{}, erro
 	}
 
-	var usuario modelos.Usuario
+	var musica modelos.Musica
 
 	if linhas.Next() { //Passa pelas linhas recebidas da query
-		if erro = linhas.Scan(&usuario.Id, &usuario.Nome, &usuario.Nick, &usuario.CriadoEm); erro != nil { //Coloca as informações em sequência dentro do variável do tipo moledos.usuario
-			return modelos.Usuario{}, erro
+		if erro = linhas.Scan(&musica.Nome, &musica.Caminho, &musica.Duracao, &musica.AdicionadoPor, &musica.Genero); erro != nil { //Coloca as informações em sequência dentro do variável do tipo moledos.usuario
+			return modelos.Musica{}, erro
 		}
 	}
 
-	return usuario, nil
+	return musica, nil
 }
 
+/*
 func (repositorio usuarios) Atualizar(ID uint64, usuario modelos.Usuario) error { // Atualiza as informações de um usuário no banco de dados
 	statement, erro := repositorio.db.Prepare("UPDATE usuarios SET nome = ?, nick = ? WHERE id = ?") //Faz o prepare statement
 	if erro != nil {

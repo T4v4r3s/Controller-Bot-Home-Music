@@ -63,7 +63,7 @@ func CriarMusica(w http.ResponseWriter, r *http.Request) { //Criar um usuário
 
 func BuscarMusicas(w http.ResponseWriter, r *http.Request) { //Busca todos os usuário que tenham um certo nome/nick
 
-	nomeOuNick := strings.ToLower(r.URL.Query().Get("usuario")) // Pega os valores da querry da URL (?usuarios=valor) e coloca em minúsculo para padronizar
+	nomeougenero := strings.ToLower(r.URL.Query().Get("musica")) // Pega os valores da querry da URL (?usuarios=valor) e coloca em minúsculo para padronizar
 
 	db, erro := banco.Conectar() //Realiza a conexão com o banco
 	if erro != nil {
@@ -76,13 +76,13 @@ func BuscarMusicas(w http.ResponseWriter, r *http.Request) { //Busca todos os us
 	//Passa conexão e manda o pacote repositório realizar a querry
 	repositorio := repositorios.NovoRepositorioDeUsuarios(db)
 
-	usuarios, erro := repositorio.Buscar(nomeOuNick) //Chama o método Buscar para realizar a consulta no banco
+	musicas, erro := repositorio.Buscar(nomeougenero) //Chama o método Buscar para realizar a consulta no banco
 	if erro != nil {
 		respostas.Erro(w, http.StatusInternalServerError, erro)
 		return
 	}
 
-	respostas.JSON(w, http.StatusOK, usuarios)
+	respostas.JSON(w, http.StatusOK, musicas)
 
 }
 
