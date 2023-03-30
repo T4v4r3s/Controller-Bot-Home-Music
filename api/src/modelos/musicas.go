@@ -11,7 +11,7 @@ import (
 type Musica struct { // Struct para usuários com sua referência em JSON
 	Nome          string `json:"nome,omitempty"`
 	Caminho       string `json:"caminho,omitempty"`
-	Duracao       string `json:"senha,omitempty"`
+	Duracao       string `json:"duracao,omitempty"`
 	AdicionadoPor uint64 `json:"adicionadopor,omitempty"`
 	Genero        string `json:"genero,omitempty"`
 }
