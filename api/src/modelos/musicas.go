@@ -36,8 +36,10 @@ func (musica *Musica) Preparar(etapa string) error {
 	}
 
 	fmt.Println("Nome extraído com sucesso!")
-
+	fmt.Print(string(out))
 	musica.Nome = string(out)
+
+	fmt.Println("Extraindo thumb...")
 
 	cmd = exec.Command("yt-dlp", "--write-thumbnail", "-f", "mhtml", "-o", "../../thumbs/%(title)s_thumbnail.%(ext)s", "ytsearch:"+musica.Nome, "-e")
 	out, err = cmd.Output()
@@ -45,13 +47,21 @@ func (musica *Musica) Preparar(etapa string) error {
 		return err
 	}
 
+	fmt.Println("Thumb extraído com sucesso!")
+	fmt.Print(string(out))
+
 	musica.Caminho = string(out)
+
+	fmt.Println("Extraindo duracao...")
 
 	cmd = exec.Command("yt-dlp", "--get-filename", "-o", "%(duration)s", "ytsearch:"+musica.Nome)
 	out, err = cmd.Output()
 	if err != nil {
 		return err
 	}
+
+	fmt.Println("Duracao extraída com sucesso!")
+	fmt.Print(string(out))
 
 	valor := string(out)
 	resultado, _ := strToInt(valor)
