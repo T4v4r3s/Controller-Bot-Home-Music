@@ -21,7 +21,7 @@ CREATE TABLE musicas(
     caminho VARCHAR(400) NOT NULL UNIQUE,
     duracao VARCHAR(15),
     adicionadoPor INT NOT NULL,
-    genero VARCHAR(20) NOT NULL,
+    genero VARCHAR(20) NOT NULL DEFAULT 'sem',
     FOREIGN KEY (adicionadoPor) REFERENCES usuarios(id)
 )ENGINE = INNODB;
 
