@@ -63,28 +63,20 @@ func (musica *Musica) Preparar(etapa string) error {
 	fmt.Println("Duracao extraída com sucesso!")
 	fmt.Print(string(out))
 
-	valor := string(out)
-	resultado, _ := strToInt(valor)
+	resultado := segundosParaMinutosSegundos(out)
 
 	fmt.Print(resultado)
 
-	musica.Duracao = segundosParaMinutosSegundos(resultado)
+	musica.Duracao = resultado
 
 	return nil
 }
 
-func segundosParaMinutosSegundos(segundos int) string {
-	minutos := segundos / 60
-	segundosRestantes := segundos % 60
+func segundosParaMinutosSegundos(segundos []byte) string {
+	segundosInt, _ := strconv.Atoi(string(segundos))
+	minutos := segundosInt / 60
+	segundosRestantes := segundosInt % 60
 	return fmt.Sprintf("%d:%02d", minutos, segundosRestantes)
-}
-
-func strToInt(s string) (int, error) {
-	i, err := strconv.Atoi(s)
-	if err != nil {
-		return 0, err
-	}
-	return i, nil
 }
 
 //Verifica se os campos do usuário estão ou não vazios
