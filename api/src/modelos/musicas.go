@@ -3,7 +3,6 @@ package modelos
 import (
 	"fmt"
 	"os/exec"
-	"strconv"
 )
 
 // Pacote que guarda structs e métodos para usuários.
@@ -63,20 +62,9 @@ func (musica *Musica) Preparar(etapa string) error {
 	fmt.Println("Duracao extraída com sucesso!")
 	fmt.Print(string(out))
 
-	resultado := segundosParaMinutosSegundos(out)
-
-	fmt.Print(resultado)
-
-	musica.Duracao = resultado
+	musica.Duracao = string(out)
 
 	return nil
-}
-
-func segundosParaMinutosSegundos(segundos []byte) string {
-	segundosInt, _ := strconv.Atoi(string(segundos))
-	minutos := segundosInt / 60
-	segundosRestantes := segundosInt % 60
-	return fmt.Sprintf("%d:%02d", minutos, segundosRestantes)
 }
 
 //Verifica se os campos do usuário estão ou não vazios
