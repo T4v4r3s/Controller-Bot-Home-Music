@@ -60,8 +60,6 @@ func (musica *Musica) Preparar(etapa string) error {
 
 	musica.Caminho = resultado
 
-	musica.Genero = "sem"
-
 	fmt.Println("Extraindo duracao...")
 
 	cmd = exec.Command("yt-dlp", "--get-filename", "-o", "%(duration)s", "ytsearch:"+musica.Nome)
