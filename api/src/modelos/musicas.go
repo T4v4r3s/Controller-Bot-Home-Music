@@ -3,6 +3,7 @@ package modelos
 import (
 	"fmt"
 	"os/exec"
+	"strings"
 )
 
 // Pacote que guarda structs e métodos para usuários.
@@ -35,8 +36,12 @@ func (musica *Musica) Preparar(etapa string) error {
 	}
 
 	fmt.Println("Nome extraído com sucesso!")
-	fmt.Print(string(out))
-	musica.Nome = string(out)
+	resultado := string(out)
+	resultado = strings.ReplaceAll(resultado, "\n", "")
+
+	fmt.Print(resultado)
+
+	musica.Nome = resultado
 
 	fmt.Println("Extraindo thumb...")
 
@@ -47,9 +52,13 @@ func (musica *Musica) Preparar(etapa string) error {
 	}
 
 	fmt.Println("Thumb extraído com sucesso!")
-	fmt.Print(string(out))
 
-	musica.Caminho = string(out)
+	resultado = string(out)
+	resultado = strings.ReplaceAll(resultado, "\n", "")
+
+	fmt.Print(resultado)
+
+	musica.Caminho = resultado
 
 	fmt.Println("Extraindo duracao...")
 
@@ -60,9 +69,13 @@ func (musica *Musica) Preparar(etapa string) error {
 	}
 
 	fmt.Println("Duracao extraída com sucesso!")
-	fmt.Print(string(out))
 
-	musica.Duracao = string(out)
+	resultado = string(out)
+	resultado = strings.ReplaceAll(resultado, "\n", "")
+
+	fmt.Print(resultado)
+
+	musica.Duracao = resultado
 
 	return nil
 }
