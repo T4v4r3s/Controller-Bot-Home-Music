@@ -26,7 +26,7 @@ func AddMusica(w http.ResponseWriter, r *http.Request) {
 
 	//fmt.Println(bytes.NewBuffer(usuario)) //debug
 
-	response, erro := http.Post("http://192.168.15.7:8888/musicas", "application/json", bytes.NewBuffer(musica))
+	response, erro := http.Post("http://192.168.15.2:8888/musicas", "application/json", bytes.NewBuffer(musica))
 	if erro != nil {
 		log.Fatal(erro)
 	}
